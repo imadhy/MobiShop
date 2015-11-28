@@ -11,15 +11,17 @@
 	    echo "<h2>Constructor error</h2><pre>" . $error . "</pre>";
 	}
 
-	$resultProduct = $client->call('getProducts');
-	
 	$cartItem = $client->call('nbOfItems');
 
+	
+	$resutlCart = $client->call('getCartItems');
+
+	/*
 	if (isset($_GET['add'])) {
 		$pdID = $_GET['add'];
-    	$addProductToCart = $client->call('addItems', array("productID" => $resultProduct['return'][$pdID]['id']));
+    	$addProductToCart = $client->call('addItems', array("productID" => $result['return'][$pdID]['id']));
   	}
-  	
+  	*/
 ?>
 
 <!DOCTYPE HTML>
@@ -68,14 +70,14 @@
     	    			<h3>Available Products</h3>
 	            		<div class="section group">
 	            			<?php
-	            			for($i = 0; $i <= 3; $i++) {
+	            			for($i = 0; $i <= sizeof($resutlCart['return']) - 1; $i++) {
 
 								echo '<div class="grid_1_of_4 images_1_of_4">
-									<h4><a href="preview.html">'.$resultProduct['return'][$i]['productName'].'</a></h4>
-									<a href="preview.html"><img src="images/'.$resultProduct['return'][$i]['img'].'" alt=""></a>
+									<h4><a href="preview.html">'.$resutlCart['return'][$i]['productName'].'</a></h4>
+									<a href="preview.html"><img src="images/'.$resutlCart['return'][$i]['img'].'" alt=""></a>
 									<div class="price-details">
 								       	<div class="price-number">
-											<p><span class="rupees">$'.$resultProduct['return'][$i]['price'].'</span></p>
+											<p><span class="rupees">$'.$resutlCart['return'][$i]['price'].'</span></p>
 									    </div>
 							       		<div class="add-cart">								
 											<h4><a href="index.php?add='.$i.'">Add to Cart</a></h4>
